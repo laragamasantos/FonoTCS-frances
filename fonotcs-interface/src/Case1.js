@@ -23,64 +23,61 @@ export class Case1 extends Component {
       };
     
       handleSubmit = () => {
-        // Here you can send the values to the global form manager
         console.log("Submitted values:", this.state.responses);
         console.log("Total score:", this.state.totalScore);
         window.scrollTo(0, 0);
-        // Here you can reset the state if needed
-        // this.setState({ responses: {}, totalScore: 0 });
       };
     
     render(){
         return(
             <div className='global'>                    
                 <div className='container'>
-                    <h2>Caso 1 de 2:</h2>
-                    <p>Paciente com 21 anos, estudante universitário, refere perda auditiva desde a infância e relata piora progressiva da audição há 5 anos. Atualmente apresenta grande dificuldade para compreender a fala, o que prejudica seu aprendizado.  </p>
-                    <p><strong>Se você está pensando em...</strong> &nbsp; Realizar o exame de Processamento Auditivo</p>
-                    <p><strong>E você encontra...</strong> &nbsp; Na anamnese o relato que o paciente tem vários familiares com perda auditiva</p>
-                    <p><strong>A decisão torna-se:</strong></p>
+                    <h2>Cas 1 de 2:</h2>
+                    <p>Patient de 21 ans, étudiant universitaire, réfère une perte auditive depuis l'enfance et signale une détérioration progressive de l'audition depuis 5 ans. Présente actuellement une grande difficulté à comprendre la parole, ce qui nuit à son apprentissage.</p>
+                    <p><strong>Si vous envisagez de...</strong> &nbsp; Effectuer l'examen de traitement auditif</p>
+                    <p><strong>Et vous trouvez...</strong> &nbsp; Dans l'anamnèse, le rapport selon lequel le patient a plusieurs membres de la famille avec une perte auditive</p>
+                    <p><strong>La décision devient:</strong></p>
                     <ul>
-                        <label><li><input type="radio" name="quest1" value="0.77" onChange={(e) => this.props.handleResponseChange("quest1", parseFloat(e.target.value))}/>-2: Fortemente contraindicada</li></label>
-                        <label><li><input type="radio" name="quest1" value="1" onChange={(e) => this.props.handleResponseChange("quest1", parseFloat(e.target.value))}/>-1: Pouco útil</li></label>
-                        <label><li><input type="radio" name="quest1" value="0.22" onChange={(e) => this.props.handleResponseChange("quest1", parseFloat(e.target.value))}/>0: Nem mais, nem menos útil</li></label>
-                        <label><li><input type="radio" name="quest1" value="0.55" onChange={(e) => this.props.handleResponseChange("quest1", parseFloat(e.target.value))}/>+1: Indicada</li></label>
-                        <label><li><input type="radio" name="quest1" value="0.22" onChange={(e) => this.props.handleResponseChange("quest1", parseFloat(e.target.value))}/>+2: Fortemente indicada</li></label>
+                        <label><li><input type="radio" name="quest1" value="0.77" onChange={(e) => this.props.handleResponseChange("quest1", parseFloat(e.target.value))}/>-2: Fortement contre-indiquée</li></label>
+                        <label><li><input type="radio" name="quest1" value="1" onChange={(e) => this.props.handleResponseChange("quest1", parseFloat(e.target.value))}/>-1: Peu utile</li></label>
+                        <label><li><input type="radio" name="quest1" value="0.22" onChange={(e) => this.props.handleResponseChange("quest1", parseFloat(e.target.value))}/>0: Ni plus ni moins utile</li></label>
+                        <label><li><input type="radio" name="quest1" value="0.55" onChange={(e) => this.props.handleResponseChange("quest1", parseFloat(e.target.value))}/>+1: Indiquée</li></label>
+                        <label><li><input type="radio" name="quest1" value="0.22" onChange={(e) => this.props.handleResponseChange("quest1", parseFloat(e.target.value))}/>+2: Fortement indiquée</li></label>
                     </ul>
                     <hr/>
-                    <p><strong>Se você está pensando em...</strong> &nbsp; Encaminhar para a avaliação de Implante Coclear</p>
-                    <p><strong>E você encontra...</strong> &nbsp; Na logoaudiometria limiares de recepção de fala de 45 dB bilateralmente</p>
-                    <p><strong>A decisão torna-se:</strong></p>
+                    <p><strong>Si vous envisagez de...</strong> &nbsp; Référer à l'évaluation de l'implant cochléaire</p>
+                    <p><strong>Et vous trouvez...</strong> &nbsp; Dans la logoaudiométrie, des seuils de réception de la parole de 45 dB bilatéralement</p>
+                    <p><strong>La décision devient:</strong></p>
                     <ul>
-                        <label><li><input type="radio" name="quest2" value="1" onChange={(e) => this.props.handleResponseChange("quest2", parseFloat(e.target.value))}/>-2: Fortemente contraindicada</li></label>
-                        <label><li><input type="radio" name="quest2" value="0.33" onChange={(e) => this.props.handleResponseChange("quest2", parseFloat(e.target.value))}/>-1: Pouco útil</li></label>
-                        <label><li><input type="radio" name="quest2" value="0.13" onChange={(e) => this.props.handleResponseChange("quest2", parseFloat(e.target.value))}/>0: Nem mais, nem menos útil</li></label>
-                        <label><li><input type="radio" name="quest2" value="0.13" onChange={(e) => this.props.handleResponseChange("quest2", parseFloat(e.target.value))}/>+1: Indicada</li></label>
-                        <label><li><input type="radio" name="quest2" value="0.06" onChange={(e) => this.props.handleResponseChange("quest2", parseFloat(e.target.value))}/>+2: Fortemente indicada</li></label>
+                        <label><li><input type="radio" name="quest2" value="1" onChange={(e) => this.props.handleResponseChange("quest2", parseFloat(e.target.value))}/>-2: Fortement contre-indiquée</li></label>
+                        <label><li><input type="radio" name="quest2" value="0.33" onChange={(e) => this.props.handleResponseChange("quest2", parseFloat(e.target.value))}/>-1: Peu utile</li></label>
+                        <label><li><input type="radio" name="quest2" value="0.13" onChange={(e) => this.props.handleResponseChange("quest2", parseFloat(e.target.value))}/>0: Ni plus ni moins utile</li></label>
+                        <label><li><input type="radio" name="quest2" value="0.13" onChange={(e) => this.props.handleResponseChange("quest2", parseFloat(e.target.value))}/>+1: Indiquée</li></label>
+                        <label><li><input type="radio" name="quest2" value="0.06" onChange={(e) => this.props.handleResponseChange("quest2", parseFloat(e.target.value))}/>+2: Fortement indiquée</li></label>
                     </ul>
                     <hr/>
-                    <p><strong>Se você está pensando em...</strong> &nbsp; Adaptar aparelhos de amplificação sonora individual</p>
-                    <p><strong>E você encontra...</strong> &nbsp; Na audiometria o seguinte resultado:</p>
-                    <p><strong>A decisão torna-se:</strong></p>
+                    <p><strong>Si vous envisagez de...</strong> &nbsp; Adapter des aides auditives individuelles</p>
+                    <p><strong>Et vous trouvez...</strong> &nbsp; Dans l'audiométrie, le résultat suivant:</p>
+                    <p><strong>La décision devient:</strong></p>
                     <ul>
-                        <label><li><input type="radio" name="quest3" value="0.06" onChange={(e) => this.props.handleResponseChange("quest3", parseFloat(e.target.value))}/>-2: Fortemente contraindicada</li></label>
-                        <label><li><input type="radio" name="quest3" value="0" onChange={(e) => this.props.handleResponseChange("quest3", parseFloat(e.target.value))}/>-1: Pouco útil</li></label>
-                        <label><li><input type="radio" name="quest3" value="0" onChange={(e) => this.props.handleResponseChange("quest3", parseFloat(e.target.value))}/>0: Nem mais, nem menos útil</li></label>
-                        <label><li><input type="radio" name="quest3" value="0.41" onChange={(e) => this.props.handleResponseChange("quest3", parseFloat(e.target.value))}/>+1: Indicada</li></label>
-                        <label><li><input type="radio" name="quest3" value="1" onChange={(e) => this.props.handleResponseChange("quest3", parseFloat(e.target.value))}/>+2: Fortemente indicada</li></label>
+                        <label><li><input type="radio" name="quest3" value="0.06" onChange={(e) => this.props.handleResponseChange("quest3", parseFloat(e.target.value))}/>-2: Fortement contre-indiquée</li></label>
+                        <label><li><input type="radio" name="quest3" value="0" onChange={(e) => this.props.handleResponseChange("quest3", parseFloat(e.target.value))}/>-1: Peu utile</li></label>
+                        <label><li><input type="radio" name="quest3" value="0" onChange={(e) => this.props.handleResponseChange("quest3", parseFloat(e.target.value))}/>0: Ni plus ni moins utile</li></label>
+                        <label><li><input type="radio" name="quest3" value="0.41" onChange={(e) => this.props.handleResponseChange("quest3", parseFloat(e.target.value))}/>+1: Indiquée</li></label>
+                        <label><li><input type="radio" name="quest3" value="1" onChange={(e) => this.props.handleResponseChange("quest3", parseFloat(e.target.value))}/>+2: Fortement indiquée</li></label>
                     </ul>
                     <hr/>
-                    <p><strong>Se você está pensando em...</strong> &nbsp; Encaminhar para a reabilitação auditiva</p>
-                    <p><strong>E você encontra...</strong> &nbsp; Na anamnese o relato de que o paciente faz uso de leitura orofacial para ajudar a compreender o que as pessoas dizem e se comunica por meio de Libras com os familiares surdos</p>
-                    <p><strong>A decisão torna-se:</strong></p>
+                    <p><strong>Si vous envisagez de...</strong> &nbsp; Référer à la réadaptation auditive</p>
+                    <p><strong>Et vous trouvez...</strong> &nbsp; Dans l'anamnèse, le rapport selon lequel le patient utilise la lecture labiale pour aider à comprendre ce que les gens disent et communique en Langue des signes avec les membres de la famille sourds</p>
+                    <p><strong>La décision devient:</strong></p>
                     <ul>
-                        <label><li><input type="radio" name="quest4" value="0" required onChange={(e) => this.props.handleResponseChange("quest4", parseFloat(e.target.value))}/>-2: Fortemente contraindicada</li></label>
-                        <label><li><input type="radio" name="quest4" value="0.42" required onChange={(e) => this.props.handleResponseChange("quest4", parseFloat(e.target.value))}/>-1: Pouco útil</li></label>
-                        <label><li><input type="radio" name="quest4" value="0.16" required onChange={(e) => this.props.handleResponseChange("quest4", parseFloat(e.target.value))}/>0: Nem mais, nem menos útil</li></label>
-                        <label><li><input type="radio" name="quest4" value="1" required onChange={(e) => this.props.handleResponseChange("quest4", parseFloat(e.target.value))}/>+1: Indicada</li></label>
-                        <label><li><input type="radio" name="quest4" value="0.5" required onChange={(e) => this.props.handleResponseChange("quest4", parseFloat(e.target.value))}/>+2: Fortemente indicada</li></label>
+                        <label><li><input type="radio" name="quest4" value="0" required onChange={(e) => this.props.handleResponseChange("quest4", parseFloat(e.target.value))}/>-2: Fortement contre-indiquée</li></label>
+                        <label><li><input type="radio" name="quest4" value="0.42" required onChange={(e) => this.props.handleResponseChange("quest4", parseFloat(e.target.value))}/>-1: Peu utile</li></label>
+                        <label><li><input type="radio" name="quest4" value="0.16" required onChange={(e) => this.props.handleResponseChange("quest4", parseFloat(e.target.value))}/>0: Ni plus ni moins utile</li></label>
+                        <label><li><input type="radio" name="quest4" value="1" required onChange={(e) => this.props.handleResponseChange("quest4", parseFloat(e.target.value))}/>+1: Indiquée</li></label>
+                        <label><li><input type="radio" name="quest4" value="0.5" required onChange={(e) => this.props.handleResponseChange("quest4", parseFloat(e.target.value))}/>+2: Fortement indiquée</li></label>
                     </ul>
-                    <NavLink className="btn form" to="/case2" onClick={this.handleSubmit}>Next question</NavLink>
+                    <NavLink className="btn form" to="/case2" onClick={this.handleSubmit}>Prochaine question</NavLink>
                 </div>
             </div>
         )

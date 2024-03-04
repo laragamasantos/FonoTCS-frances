@@ -25,7 +25,7 @@ export class CaseManager extends Component {
     return (
       <div className='global'>
         <div className='container'>
-          <h2>Total Score: {totalScore}</h2>
+          <h2>Score Total: {totalScore}</h2>
         </div>
       </div>
     );

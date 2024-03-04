@@ -37,11 +37,11 @@ function Login() {
             }
         ).then(function (res) {
             setCurrentUser(true);
-            console.log("Logged in");
+            console.log("Connecté");
         }).catch(function (error) {
             setCurrentUser(false);
-            setError('Usuário ou senha incorretos.');
-            console.log("Not logged in");
+            setError("Nom d'utilisateur ou mot de passe incorrect.");
+            console.log("Non connecté");
         });
 
     }
@@ -53,7 +53,7 @@ function Login() {
     return (
         <div className='global login'>
             <div className='container login'>
-                <h1>Login</h1>
+                <h1>Connexion</h1>
                 <hr />
                 {error && <p className='error'>{error}</p>}
                 <form onSubmit={e => submitLogin(e)}>
@@ -65,11 +65,11 @@ function Login() {
                     /><br />
                     <input
                         type="password"
-                        placeholder="Senha"
+                        placeholder="Mot de passe"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                    /> <p className='login_desc'>A senha deve conter pelo menos 8 caracteres.</p><br />
-                    <button className='btn form' type="submit">Login</button>
+                    /> <p className='login_desc'>Le mot de passe doit contenir au moins 8 caractères.</p><br />
+                    <button className='btn form' type="submit">Connexion</button>
                 </form>
             </div>
         </div>

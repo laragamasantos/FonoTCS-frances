@@ -36,9 +36,9 @@ function Register() {
       });
     }).catch(function (error) {
       if (error.response && error.response.data && error.response.data.email) {
-        setError('Email already exists.');
+        setError('Email déjà existant.');
       } else {
-        setError('Email já existe.');
+        setError('Email déjà existant.');
       }
     });
   }
@@ -50,15 +50,15 @@ function Register() {
   return (
     <div className='global register'>
       <div className='container register'>
-        <h1>Register</h1>
+        <h1>Enregistrement</h1>
         <hr />
         {error && <p className='error'>{error}</p>}
         <form onSubmit={e => submitRegistration(e)}>
-          <input type="text" placeholder="Full Name" value={username} onChange={e => setUsername(e.target.value)} /><br />
+          <input type="text" placeholder="Nom complet" value={username} onChange={e => setUsername(e.target.value)} /><br />
           <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} /><br />
-          <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} /><br />
-          <p className='login_desc'>A senha deve conter pelo menos 8 caracteres.</p><br />
-          <button className='btn form' type="submit">Register</button>
+          <input type="password" placeholder="Mot de passe" value={password} onChange={e => setPassword(e.target.value)} /><br />
+          <p className='login_desc'>Le mot de passe doit contenir au moins 8 caractères.</p><br />
+          <button className='btn form' type="submit">Enregistrer</button>
         </form>
       </div>
     </div>
