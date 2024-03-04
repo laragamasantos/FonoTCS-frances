@@ -20,12 +20,12 @@ export class CaseManager extends Component {
   render() {
     let totalScore = 0;
     if (this.props.caseCount > 0) {
-      totalScore = this.props.totalScore;
+      totalScore = this.props.totalScore / this.props.caseCount;
     }
     return (
       <div className='global'>
         <div className='container'>
-          <h2>Score Total: {totalScore}</h2>
+          <h2>Score Total: {totalScore} %</h2>
         </div>
       </div>
     );
