@@ -10,13 +10,6 @@ export class CaseManager extends Component {
     };
   }
 
-  /* handleResponseChange = (question, value) => {
-    const newResponses = {
-      ...this.state.responses,
-      [question]: value
-    };
-  }; */
-
   render() {
     let totalScore = 0;
     if (this.props.caseCount > 0) {
