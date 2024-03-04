@@ -1,0 +1,79 @@
+import './App.css';
+import './Global.css';
+import './Login.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Navigate } from 'react-router-dom';
+
+function Login() {
+    const [currentUser, setCurrentUser] = useState();
+    const [registrationToggle, setRegistrationToggle] = useState(false);
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const client = axios.create({
+        baseURL: "http://127.0.0.1:8000"
+    });
+
+    useEffect(() => {
+        client.get("/user")
+            .then(function (res) {
+                setCurrentUser(true);
+            })
+            .catch(function (error) {
+                setCurrentUser(false);
+            });
+    }, []);
+
+    function submitLogin(e) {
+        e.preventDefault();
+        client.post(
+            "/login",
+            {
+                email: email,
+                password: password
+            }
+        ).then(function (res) {
+            setCurrentUser(true);
+            console.log("Logged in");
+        }).catch(function (error) {
+            setCurrentUser(false);
+            setError('Usuário ou senha incorretos.');
+            console.log("Not logged in");
+        });
+
+    }
+
+    if (currentUser) {
+        return <Navigate to="/case1" />; 
+    }
+
+    return (
+        <div className='global login'>
+            <div className='container login'>
+                <h1>Login</h1>
+                <hr />
+                {error && <p className='error'>{error}</p>}
+                <form onSubmit={e => submitLogin(e)}>
+                    <input
+                        type="text"
+                        placeholder="Email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    /><br />
+                    <input
+                        type="password"
+                        placeholder="Senha"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    /> <p className='login_desc'>A senha deve conter pelo menos 8 caracteres.</p><br />
+                    <button className='btn form' type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    )
+}
+
+export default Login;

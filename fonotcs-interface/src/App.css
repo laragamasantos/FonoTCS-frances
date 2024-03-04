@@ -1,0 +1,48 @@
+.App {
+  color: rgb(53 162 159);
+}
+
+ul {
+  list-style-type: none;
+}
+
+li:hover {
+  cursor: pointer;
+}
+
+.logo-header-img {
+  max-width: 10%;
+  position: absolute;
+  margin-left: 2%;
+  margin-top: 0.3%;
+  left: 0; 
+  z-index: 1; 
+}
+
+.btn {
+  background-color: rgb(53 162 159);
+  color: #fff;
+  text-decoration: none;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-radius: 3%;
+  border: 1.7px solid rgb(53 162 159);
+  white-space: nowrap;
+  margin-left: 1.3rem;
+  margin-top: 6%;
+  margin-bottom: 6%;
+}
+
+.navbar-list .btn:nth-child(2)  {
+  background-color: #fff;
+  color: rgb(53 162 159); 
+  margin-right: 3.6rem;
+}
+
+.navbar-list .btn:nth-child(2):hover, .btn:hover {
+  background-color: rgba(195, 237, 192, 0.8);
+  color: rgb(53 162 159);
+  cursor: pointer;
+}
