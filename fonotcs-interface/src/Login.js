@@ -17,7 +17,7 @@ function Login() {
         baseURL: "http://127.0.0.1:8000"
     });
 
-    useEffect(() => {
+/*     useEffect(() => {
         client.get("/user")
             .then(function (res) {
                 setCurrentUser(true);
@@ -25,7 +25,7 @@ function Login() {
             .catch(function (error) {
                 setCurrentUser(false);
             });
-    }, []);
+    }, []); */
 
     function submitLogin(e) {
         e.preventDefault();
