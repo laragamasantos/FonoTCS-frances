@@ -9,7 +9,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isTeacher, setIsTeacher] = useState('');
+  const [isTeacher, setIsTeacher] = useState(false);
   const [gender, setGender] = useState('');
   const [age, setAge] = useState('');
   const [highestDegree, setHighestDegree] = useState('');
@@ -28,6 +28,7 @@ function Register() {
         email: email,
         username: username,
         password: password,
+        isTeacher: isTeacher,
         gender: gender,
         age: age,
         highestDegree: highestDegree,
@@ -63,7 +64,7 @@ function Register() {
         <hr />
         {error && <p className='error'>{error}</p>}
         <form onSubmit={e => submitRegistration(e)}>
-          <label><input type="checkbox" value={isTeacher} onChange={e => setIsTeacher(e.target.value)} /> Sou professor? </label><br />
+          <label><input type="checkbox" checked={isTeacher} onChange={e => setIsTeacher(e.target.checked)} /> Sou professor? </label><br />
           <input type="text" placeholder="Nome completo" value={username} onChange={e => setUsername(e.target.value)} /><br />
           <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} /><br />
           <input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} /><br />
