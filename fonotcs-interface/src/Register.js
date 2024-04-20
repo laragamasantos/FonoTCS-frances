@@ -12,7 +12,7 @@ function Register() {
   const [error, setError] = useState('');
 
   const client = axios.create({
-    baseURL: "http://127.0.0.1:8000"
+    baseURL: "https://fonotcs.medicina.ufmg.br/api"
   });
   
   function submitRegistration(e) {
