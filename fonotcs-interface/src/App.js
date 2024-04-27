@@ -19,8 +19,40 @@ class App extends Component {
     super(props);
     this.state = {
       totalScore: 0,
-      caseCount: 0
+      caseCount: 0,
+      cases: [],
+      questions: []
     };
+  }
+
+  componentDidMount() {
+    axios.get('https://fonotcs.medicina.ufmg.br/api/cases')
+      .then(response => {
+        console.log(response);
+        this.setState({ cases: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      }); 
+  
+    axios.get('https://fonotcs.medicina.ufmg.br/api/questions')
+      .then(response => {
+        console.log(response);
+        this.setState({ questions: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  createCase(caseObj) {
+    const questions = this.state.questions.filter(quest => quest.case_id_id === caseObj.id);
+    const routePath = `/case/${caseObj.id}`;
+    return  <Route path={routePath} element={<Case1 case={caseObj} questions={questions} handleResponseChange={this.handleResponseChange}/>} exact/>
+  }
+
+  createCases(cases) {
+    return cases.map(this.createCase);
   }
 
   handleResponseChange = (value) => {
@@ -38,8 +70,12 @@ class App extends Component {
         <img className='logo-header-img' src={LogoHeader} alt="FonoTCS logo and name" />
         <Routes>
           <Route path='/' element={<Home/>} exact/>
-          <Route path='/case1' element={<Case1 handleResponseChange={this.handleResponseChange}/>} exact/>
-          <Route path='/case2' element={<Case2 handleResponseChange={this.handleResponseChange}/>} exact/>
+          {this.state.cases.length > 0 && (
+           this.createCases(this.state.cases)
+          )}
+          
+{/*           <Route path='/case1' element={<Case1 handleResponseChange={this.handleResponseChange}/>} exact/>
+          <Route path='/case2' element={<Case2 handleResponseChange={this.handleResponseChange}/>} exact/> */}
           <Route path='/casemanager' element={<CaseManager totalScore={this.state.totalScore} caseCount={this.state.caseCount}/>} exact/>          
           <Route path='/login' element={<Login/>} exact/>
           <Route path='/register' element={<Register/>} exact/>

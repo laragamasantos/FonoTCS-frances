@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
+from .models import Cases, Questions
 
 UserModel = get_user_model()
 
@@ -32,3 +33,13 @@ class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = UserModel
 		fields = ('email', 'username')
+
+class CasesSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Cases
+		fields = '__all__'
+
+class QuestionsSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Questions
+		fields = '__all__'
