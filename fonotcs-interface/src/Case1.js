@@ -30,7 +30,7 @@ export class Case1 extends Component {
   };
 
   getNextCasePath = () => {
-    const nextCaseId = this.state.case.id + 1;
+    const nextCaseId = this.props.case.id + 1;
     console.log("Next case id:", nextCaseId); 
     return `/case/${nextCaseId}`;
   };
@@ -48,7 +48,7 @@ export class Case1 extends Component {
             </p>
 
             {this.props.questions.map((question) => (
-            <div>
+            <div key={question.id}>
               <p>
                 <strong>Se você está pensando em... </strong> &nbsp; 
                 {question.if_situation}
@@ -65,11 +65,11 @@ export class Case1 extends Component {
                   <li>
                     <input
                       type="radio"
-                      name="quest1"
+                      name={question.id}
                       value={question.option_a_weight}
                       onChange={(e) =>
                         this.handleResponseChange(
-                          "quest1",
+                          question.id,
                           parseFloat(e.target.value)
                         )
                       }
@@ -81,11 +81,11 @@ export class Case1 extends Component {
                   <li>
                     <input
                       type="radio"
-                      name="quest1"
+                      name={question.id}
                       value={question.option_b_weight}
                       onChange={(e) =>
                         this.handleResponseChange(
-                          "quest1",
+                          question.id,
                           parseFloat(e.target.value)
                         )
                       }
@@ -97,11 +97,11 @@ export class Case1 extends Component {
                   <li>
                     <input
                       type="radio"
-                      name="quest1"
+                      name={question.id}
                       value={question.option_c_weight}
                       onChange={(e) =>
                         this.handleResponseChange(
-                          "quest1",
+                          question.id,
                           parseFloat(e.target.value)
                         )
                       }
@@ -113,11 +113,11 @@ export class Case1 extends Component {
                   <li>
                     <input
                       type="radio"
-                      name="quest1"
+                      name={question.id}
                       value={question.option_d_weight}
                       onChange={(e) =>
                         this.handleResponseChange(
-                          "quest1",
+                          question.id,
                           parseFloat(e.target.value)
                         )
                       }
@@ -129,11 +129,11 @@ export class Case1 extends Component {
                   <li>
                     <input
                       type="radio"
-                      name="quest1"
+                      name={question.id}
                       value={question.option_e_weight}
                       onChange={(e) =>
                         this.handleResponseChange(
-                          "quest1",
+                          question.id,
                           parseFloat(e.target.value)
                         )
                       }
@@ -145,11 +145,11 @@ export class Case1 extends Component {
               <hr />
             </div>
             ))}
+            <NavLink className="btn form" to={this.getNextCasePath} onClick={this.handleSubmit}>
+              Próxima questão
+            </NavLink>
           </div>
         )}
-          <NavLink className="btn form" to={this.getNextCasePath} onClick={this.handleSubmit}>
-            Próxima questão
-          </NavLink>
         </div>
       </div>
     );

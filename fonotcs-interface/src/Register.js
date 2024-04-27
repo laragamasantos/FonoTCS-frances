@@ -54,7 +54,7 @@ function Register() {
   }
 
   if (currentUser) {
-    return <Navigate to="/case1" />; 
+    return <Navigate to="/case/1" />; 
   }
 
   return (
