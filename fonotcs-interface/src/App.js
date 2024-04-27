@@ -45,13 +45,13 @@ class App extends Component {
       });
   }
 
-  createCase(caseObj) {
-    const questions = this.state.questions.filter(quest => quest.case_id_id === caseObj.id);
+  createCase = (caseObj) => {
+    const filteredQuestions = this.state.questions.filter(quest => quest.case_id === caseObj.id);
     const routePath = `/case/${caseObj.id}`;
-    return  <Route path={routePath} element={<Case1 case={caseObj} questions={questions} handleResponseChange={this.handleResponseChange}/>} exact/>
+    return  <Route path={routePath} element={<Case1 case={caseObj} questions={filteredQuestions} handleResponseChange={this.handleResponseChange}/>} exact/>
   }
 
-  createCases(cases) {
+  createCases = (cases) => {
     return cases.map(this.createCase);
   }
 
@@ -70,7 +70,7 @@ class App extends Component {
         <img className='logo-header-img' src={LogoHeader} alt="FonoTCS logo and name" />
         <Routes>
           <Route path='/' element={<Home/>} exact/>
-          {this.state.cases.length > 0 && (
+          {this.state.cases.length > 0 && this.state.questions.length > 0 && (
            this.createCases(this.state.cases)
           )}
           
