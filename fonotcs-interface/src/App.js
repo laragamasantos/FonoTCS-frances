@@ -1,10 +1,10 @@
 import "./App.css";
 import Login from "./Login";
 import Register from "./Register";
-import { Case1 } from "./Case1";
+import { Case } from "./Case";
 import { CaseManager } from "./CaseManager";
 import { Home } from "./Home";
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import LogoHeader from "./imgs/logo-header.png";
 import React, { Component } from "react";
@@ -54,7 +54,7 @@ class App extends Component {
         key={caseObj.id}
         path={routePath}
         element={
-          <Case1
+          <Case
             case={caseObj}
             questions={filteredQuestions}
             handleResponseChange={this.handleResponseChange}
@@ -91,9 +91,6 @@ class App extends Component {
           {this.state.cases.length > 0 &&
             this.state.questions.length > 0 &&
             this.createCases(this.state.cases)}
-
-          {/*           <Route path='/case1' element={<Case1 handleResponseChange={this.handleResponseChange}/>} exact/>
-          <Route path='/case2' element={<Case2 handleResponseChange={this.handleResponseChange}/>} exact/> */}
           <Route
             path="/casemanager"
             element={

@@ -3,7 +3,7 @@ import "./Global.css";
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
-export class Case1 extends Component {
+export class Case extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +12,16 @@ export class Case1 extends Component {
       case: {},
       questions: []
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.case.id !== this.props.case.id) {
+      this.setState({ nextCaseId: this.props.case.id });
+    }
+  }
+
+  componentDidMount() {
+      this.setState({ nextCaseId: this.props.case.id + 1});
   }
 
   handleResponseChange = (question, value) => {
@@ -24,15 +34,8 @@ export class Case1 extends Component {
   };
 
   handleSubmit = () => {
-    console.log("Submitted values:", this.state.responses);
-    console.log("Total score:", this.state.totalScore);
+    console.log("Submitted values:", this.state.responses); 
     window.scrollTo(0, 0);
-  };
-
-  getNextCasePath = () => {
-    const nextCaseId = this.props.case.id + 1;
-    console.log("Next case id:", nextCaseId); 
-    return `/case/${nextCaseId}`;
   };
 
   render() {
@@ -41,7 +44,7 @@ export class Case1 extends Component {
         <div className="container">
         {this.props.case && this.props.questions.length > 0 && (
           <div>
-            <h2>Caso {this.props.case.id} de 3:</h2>
+            <h2>Caso {this.props.case.id} de 2:</h2>
 
             <p>
               {this.props.case.description}
@@ -74,7 +77,7 @@ export class Case1 extends Component {
                         )
                       }
                     />
-                    -2: Fortemente contraindicada
+                    -2: Fortemente contraindicada 
                   </li>
                 </label>
                 <label>
@@ -90,7 +93,7 @@ export class Case1 extends Component {
                         )
                       }
                     />
-                    -1: Pouco útil
+                    -1: Pouco útil  
                   </li>
                 </label>
                 <label>
@@ -106,7 +109,7 @@ export class Case1 extends Component {
                         )
                       }
                     />
-                    0: Nem mais nem menos útil
+                    0: Nem mais nem menos útil 
                   </li>
                 </label>
                 <label>
@@ -122,7 +125,7 @@ export class Case1 extends Component {
                         )
                       }
                     />
-                    +1: Indicada
+                    +1: Indicada 
                   </li>
                 </label>
                 <label>
@@ -138,16 +141,22 @@ export class Case1 extends Component {
                         )
                       }
                     />
-                    +2: Fortemente indicada
+                    +2: Fortemente indicada 
                   </li>
                 </label>
               </ul>
               <hr />
             </div>
             ))}
-            <NavLink className="btn form" to={this.getNextCasePath} onClick={this.handleSubmit}>
-              Próxima questão
-            </NavLink>
+            {this.props.case.id === 2 ? (
+              <NavLink className="btn form" to={`/casemanager`} onClick={this.handleSubmit}>
+                Próxima questão
+              </NavLink>
+            ) : (
+              <NavLink className="btn form" to={`/case/${this.props.case.id + 1}`} onClick={this.handleSubmit}>
+                Próxima questão
+              </NavLink>
+            )}
           </div>
         )}
         </div>
