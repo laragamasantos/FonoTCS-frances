@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
-from .models import Cases, Questions, Student, Teacher
+from .models import Cases, Questions, Student, Teacher, Classes
 
 UserModel = get_user_model()
 
@@ -39,17 +39,20 @@ class TeacherUserRegisterSerializer(serializers.ModelSerializer):
 		fields = ['email', 'username', 'password', 'classId']
 
 	def create(self, validated_data):
-		teacher_data = {
-			'classId': validated_data.pop('classId', ''),
-		}
-
 		user = UserModel.objects.create_user(
 			email=validated_data['email'],
 			username=validated_data['username'],
 			password=validated_data['password'],
 			isTeacher=True,
 		)
-		teacher = Teacher.objects.create(user=user, **teacher_data)
+		teacher = Teacher.objects.create(user=user)
+
+		class_data = {
+			'classId': validated_data.pop('classId', ''),
+			'teacherId': teacher,
+		}
+		classes = Classes.objects.create(**class_data)
+
 		return user
 	
 class UserLoginSerializer(serializers.Serializer):

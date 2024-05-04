@@ -35,7 +35,18 @@ class Student(models.Model):
 
 class Teacher(models.Model):
 	user = models.OneToOneField(AppUser, on_delete=models.CASCADE, primary_key=True)
-	classId = models.CharField(max_length=50, default='')
+
+class Classes(models.Model):
+	classId = models.CharField(primary_key=True, max_length=50, default='')
+	teacherId = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+
+class Results(models.Model):
+	class Meta:
+		unique_together = (('classId', 'studentId'),)
+
+	classId = models.ForeignKey(Classes, on_delete=models.CASCADE)
+	studentId = models.ForeignKey(Student, on_delete=models.CASCADE)
+	grade = models.FloatField(default=0.0)
 	
 class Cases(models.Model):
 	id = models.AutoField(primary_key=True)
