@@ -2,29 +2,38 @@ from django.contrib.auth import login, logout
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer
+from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, CasesSerializer, QuestionsSerializer
 from .models import Cases, Questions
 from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated	
 from .validations import custom_validation, validate_email, validate_password
 
 
-class UserRegister(APIView):
+class StudentUserRegister(APIView):
 	permission_classes = (permissions.AllowAny,)
 	def post(self, request):
 		clean_data = custom_validation(request.data)
-		serializer = UserRegisterSerializer(data=clean_data)
+		serializer = StudentUserRegisterSerializer(data=clean_data)
 		if serializer.is_valid(raise_exception=True):
 			user = serializer.create(clean_data)
 			if user:
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class TeacherUserRegister(APIView):
+	permission_classes = (permissions.AllowAny,)
+	def post(self, request):
+		clean_data = custom_validation(request.data)
+		serializer = TeacherUserRegisterSerializer(data=clean_data)
+		if serializer.is_valid(raise_exception=True):
+			user = serializer.create(clean_data)
+			if user:
+				return Response(serializer.data, status=status.HTTP_201_CREATED)
+		return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class UserLogin(APIView):
 	permission_classes = (permissions.AllowAny,)
 	authentication_classes = (SessionAuthentication,)
-	##
 	def post(self, request):
 		data = request.data
 		assert validate_email(data)
@@ -49,8 +58,7 @@ class UserView(APIView):
     authentication_classes = (SessionAuthentication,)
 
     def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_200_OK)
 	
 class CasesView(APIView):
 	permission_classes = (permissions.AllowAny,)
@@ -67,3 +75,4 @@ class QuestionsView(APIView):
 		questions = Questions.objects.all()
 		serializer = QuestionsSerializer(questions, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
+
