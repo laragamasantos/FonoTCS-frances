@@ -5,11 +5,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+axios.defaults.withCredentials = true;
+
 function Login() {
     const [currentUser, setCurrentUser] = useState();
-    const [registrationToggle, setRegistrationToggle] = useState(false);
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
@@ -34,6 +36,9 @@ function Login() {
             {
                 email: email,
                 password: password
+            },
+            {
+                withCredentials: true 
             }
         ).then(function (res) {
             setCurrentUser(true);

@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, CasesSerializer, QuestionsSerializer
+from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer
 from .models import Cases, Questions
 from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated	
@@ -54,11 +54,12 @@ class UserLogout(APIView):
 
 
 class UserView(APIView):
-    permission_classes = (IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,)
-
-    def get(self, request):
-        return Response(status=status.HTTP_200_OK)
+	permission_classes = (permissions.AllowAny,)
+	authentication_classes = (SessionAuthentication,)
+	def get(self, request):
+		print("UserView" +  str(self.request.user))
+		serializer = UserSerializer(instance=request.user)
+		return Response(serializer.data, status=status.HTTP_200_OK)
 	
 class CasesView(APIView):
 	permission_classes = (permissions.AllowAny,)
@@ -75,4 +76,10 @@ class QuestionsView(APIView):
 		questions = Questions.objects.all()
 		serializer = QuestionsSerializer(questions, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
+	
+class TesteView(APIView):
+	permission_classes = (permissions.AllowAny,)
+	authentication_classes = ()
+	def get(self, request):
+		return Response(status=status.HTTP_200_OK)
 

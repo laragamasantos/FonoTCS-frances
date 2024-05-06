@@ -51,13 +51,13 @@ class Results(models.Model):
 class Cases(models.Model):
 	id = models.AutoField(primary_key=True)
 	description = models.TextField()
+	image = models.FileField(upload_to='', blank=True, null=True)
 
 class Questions(models.Model):
 	id = models.AutoField(primary_key=True)
 	case_id = models.ForeignKey(Cases, on_delete=models.CASCADE)
 	if_situation = models.TextField()
 	and_situation = models.TextField()
-	image = models.FileField(upload_to='images/', blank=True, null=True)
 	option_a_weight = models.FloatField()
 	option_b_weight = models.FloatField()
 	option_c_weight = models.FloatField()

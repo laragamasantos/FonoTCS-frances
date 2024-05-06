@@ -50,13 +50,14 @@ CORS_ALLOW_CREDENTIALS = True
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'FonoTCSApp.middleware.AuthenticationMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -85,9 +86,9 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -126,6 +127,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Engine para armazenar as sessões no banco de dados
+SESSION_COOKIE_NAME = 'sessionid'  # Nome do cookie de sessão
+SESSION_COOKIE_AGE = 3600  # Tempo de vida do cookie de sessão em segundos (opcional)
+SESSION_COOKIE_SECURE = False  # Defina como True se estiver usando HTTPS
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Define se a sessão expira quando o navegador é fechado
+SESSION_COOKIE_DOMAIN = '127.0.0.1'
+SESSION_SAVE_EVERY_REQUEST = True  # Salva a sessão a cada requisição
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -143,6 +151,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

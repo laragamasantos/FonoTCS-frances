@@ -56,3 +56,14 @@ hr {
     padding: 10px;
     align-self: center;
 }
+
+.case-img-container, .button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.case-img {
+    width:50%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
