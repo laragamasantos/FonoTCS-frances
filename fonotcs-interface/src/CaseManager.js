@@ -12,7 +12,7 @@ export class CaseManager extends Component {
   render() {
     let totalScore = 0;
     if (this.props.caseCount > 0) {
-      totalScore = this.props.totalScore / 7;
+      totalScore = this.props.totalScore / 88;
     }
     return (
       <div className='global'>
