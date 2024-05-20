@@ -1,6 +1,6 @@
 import './App.css';
 import './Global.css';
-import './Login.css';
+import './LoginRegister.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
@@ -42,23 +42,23 @@ function Login() {
             }
         ).then(function (res) {
             setCurrentUser(true);
-            console.log("Connecté");
+            console.log("Conectado");
         }).catch(function (error) {
             setCurrentUser(false);
-            setError("Nom d'utilisateur ou mot de passe incorrect.");
-            console.log("Non connecté");
+            setError("Nome de usuário ou senha incorretos.");
+            console.log("Não conectado");
         });
 
     }
 
     if (currentUser) {
-        return <Navigate to="/case/1" />; 
+        return <Navigate to="/tutorial" />; 
     }
 
     return (
         <div className='global login'>
-            <div className='container login'>
-                <h1>Connexion</h1>
+            <div className='container form'>
+                <h1>Login</h1>
                 <hr />
                 {error && <p className='error'>{error}</p>}
                 <form onSubmit={e => submitLogin(e)}>
@@ -70,11 +70,11 @@ function Login() {
                     /><br />
                     <input
                         type="password"
-                        placeholder="Mot de passe"
+                        placeholder="Senha"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                    /> <p className='login_desc'>Le mot de passe doit contenir au moins 8 caractères.</p><br />
-                    <button className='btn form' type="submit">Connexion</button>
+                    /> <p className='password-desc'>A senha deve possuir no mínimo 8 caracteres.</p><br />
+                    <button className='btn form' type="submit">Conexão</button>
                 </form>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import "./App.css";
 import "./Global.css";
+import "./LoginRegister.css";
 import React, { useState } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
@@ -68,12 +69,12 @@ function Register() {
   }
 
   if (currentUser) {
-    return <Navigate to="/case/1" />;
+    return <Navigate to="/tutorial" />;
   }
 
   return (
-    <div className="global register">
-      <div className="container register">
+    <div className="global">
+      <div className="container form">
         <h1>Criar conta</h1>
         <hr />
         {error && <p className="error">{error}</p>}
@@ -107,8 +108,7 @@ function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <br />
-          <p className="login_desc">
+          <p className="password-desc">
             A senha deve possuir no mínimo 8 caracteres.
           </p>
           <br />
@@ -152,6 +152,7 @@ function Register() {
               <label>
                 Maior titulação acadêmica: &nbsp;
                 <select
+                  className="select-degree"
                   gender={highestDegree}
                   onChange={(e) => setHighestDegree(e.target.value)}
                 >
@@ -178,7 +179,7 @@ function Register() {
               <br />
             </div>
           )}
-          <button className="btn form" type="submit">
+          <button className="btn form create-account" type="submit">
             Salvar
           </button>
         </form>

@@ -1,6 +1,7 @@
 import "./App.css";
 import Login from "./Login";
 import Register from "./Register";
+import Tutorial from "./Tutorial";
 import { Case } from "./Case";
 import { CaseManager } from "./CaseManager";
 import { Home } from "./Home";
@@ -103,6 +104,7 @@ class App extends Component {
           />
           <Route path="/login" element={<Login />} exact />
           <Route path="/register" element={<Register />} exact />
+          <Route path="/tutorial" element={<Tutorial />} exact />
         </Routes>
       </BrowserRouter>
     );

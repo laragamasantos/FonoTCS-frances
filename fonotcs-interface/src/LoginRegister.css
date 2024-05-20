@@ -1,0 +1,30 @@
+input {
+    font-size: large;
+}
+
+.global.login {
+    padding: 0;
+}
+
+.container.form {
+    width: 15rem;
+    padding-left: 5rem;
+    padding-right: 5rem;  
+}
+
+form {
+    margin-top: 10%;
+}
+
+.password-desc {
+    margin-left: 0.5rem;
+    font-size: small;
+}
+
+.select-degree {
+    margin-top: 0.5rem;
+}
+
+.create-account {
+    margin-top: 2rem;
+}

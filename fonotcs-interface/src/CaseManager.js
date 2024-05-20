@@ -17,7 +17,7 @@ export class CaseManager extends Component {
     return (
       <div className='global'>
         <div className='container'>
-          <h2>Score Total: {(totalScore * 100).toFixed(2)}%</h2>
+          <h2>Resultado final: {(totalScore * 100).toFixed(2)}%</h2>
         </div>
       </div>
     );
