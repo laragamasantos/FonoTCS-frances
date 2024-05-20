@@ -1,8 +1,8 @@
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer
+from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer, SaveScoreSerializer
 from .models import Cases, Questions
 from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated	
@@ -40,8 +40,11 @@ class UserLogin(APIView):
 		assert validate_password(data)
 		serializer = UserLoginSerializer(data=data)
 		if serializer.is_valid(raise_exception=True):
+			user = authenticate(request, username=username, password=password)
 			user = serializer.check_user(data)
 			login(request, user)
+			print('login')
+			print(request.user)
 			return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -67,6 +70,11 @@ class CasesView(APIView):
 	def get(self, request):
 		cases = Cases.objects.all()
 		serializer = CasesSerializer(cases, many=True)
+		print('teste')
+		try:
+			print(request.session)
+		except Exception as e:
+			print(e)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 	
 class QuestionsView(APIView):
@@ -76,6 +84,22 @@ class QuestionsView(APIView):
 		questions = Questions.objects.all()
 		serializer = QuestionsSerializer(questions, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
+	
+class SaveUserScore(APIView):
+	permission_classes = (permissions.AllowAny,)
+	authentication_classes = ()
+	def post(self, request):
+		try:
+			print(request.user)
+			clean_data = request.data
+			clean_data['studentId'] = request.user.id
+			clean_data['classId'] = 1
+			serializer = SaveScoreSerializer(data=clean_data)
+			if serializer.is_valid(raise_exception=True):
+				result = serializer.save_score(request.totalScore)
+		except Exception as e:
+			print(e)
+		return Response(status=status.HTTP_200_OK)
 	
 class TesteView(APIView):
 	permission_classes = (permissions.AllowAny,)
