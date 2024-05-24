@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout, authenticate
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer, SaveScoreSerializer
+from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer
 from .models import Cases, Questions
 from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated	
@@ -40,8 +40,8 @@ class UserLogin(APIView):
 		assert validate_password(data)
 		serializer = UserLoginSerializer(data=data)
 		if serializer.is_valid(raise_exception=True):
-			user = authenticate(request, username=username, password=password)
 			user = serializer.check_user(data)
+			print(user)
 			login(request, user)
 			print('login')
 			print(request.user)
