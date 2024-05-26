@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'FonoTCSApp.middleware.AuthenticationMiddleware',
+    """ 'FonoTCSApp.middleware.AuthenticationMiddleware', """
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -133,7 +133,6 @@ SESSION_COOKIE_AGE = 3600  # Tempo de vida do cookie de sessão em segundos (opc
 SESSION_COOKIE_SECURE = False  # Defina como True se estiver usando HTTPS
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Define se a sessão expira quando o navegador é fechado
 SESSION_COOKIE_DOMAIN = '127.0.0.1'
-SESSION_SAVE_EVERY_REQUEST = True  # Salva a sessão a cada requisição
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
