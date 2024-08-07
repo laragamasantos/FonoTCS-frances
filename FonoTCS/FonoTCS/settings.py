@@ -44,9 +44,6 @@ INSTALLED_APPS = [
     'FonoTCSApp.apps.FonotcsappConfig', 
 ]
 
-#CORS_ORIGIN_ALLOW_ALL = True #Nao recomendado. Colocar apenas os dominios que devem ser listados
-CORS_ALLOW_CREDENTIALS = True
-
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -64,6 +61,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "https://fonotcs.medicina.ufmg.br"
 ]
+CORS_ALLOW_CREDENTIALS = True
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True
 
 AUTH_USER_MODEL = 'FonoTCSApp.AppUser'
 
@@ -125,13 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Engine para armazenar as sessões no banco de dados
-SESSION_COOKIE_NAME = 'sessionid'  # Nome do cookie de sessão
-SESSION_COOKIE_AGE = 3600  # Tempo de vida do cookie de sessão em segundos (opcional)
-SESSION_COOKIE_SECURE = False  # Defina como True se estiver usando HTTPS
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Define se a sessão expira quando o navegador é fechado
-SESSION_COOKIE_DOMAIN = '127.0.0.1'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
