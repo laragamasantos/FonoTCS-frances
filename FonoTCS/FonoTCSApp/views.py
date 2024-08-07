@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout, authenticate
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer
+from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer, SaveScoreSerializer
 from .models import Cases, Questions
 from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated	
@@ -41,10 +41,7 @@ class UserLogin(APIView):
 		serializer = UserLoginSerializer(data=data)
 		if serializer.is_valid(raise_exception=True):
 			user = serializer.check_user(data)
-			print(user)
 			login(request, user)
-			print('login')
-			print(request.user)
 			return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -60,7 +57,6 @@ class UserView(APIView):
 	permission_classes = (permissions.AllowAny,)
 	authentication_classes = (SessionAuthentication,)
 	def get(self, request):
-		print("UserView" +  str(self.request.user))
 		serializer = UserSerializer(instance=request.user)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 	
@@ -70,7 +66,6 @@ class CasesView(APIView):
 	def get(self, request):
 		cases = Cases.objects.all()
 		serializer = CasesSerializer(cases, many=True)
-		print('teste')
 		try:
 			print(request.session)
 		except Exception as e:
@@ -90,7 +85,6 @@ class SaveUserScore(APIView):
 	authentication_classes = ()
 	def post(self, request):
 		try:
-			print(request.user)
 			clean_data = request.data
 			clean_data['studentId'] = request.user.id
 			clean_data['classId'] = 1
