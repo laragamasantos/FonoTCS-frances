@@ -5,6 +5,7 @@ import Tutorial from "./Tutorial";
 import { Case } from "./Case";
 import { CaseManager } from "./CaseManager";
 import { Home } from "./Home";
+import { TeacherSpace } from "./TeacherSpace";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import LogoHeader from "./imgs/logo-header.png";
@@ -105,6 +106,7 @@ class App extends Component {
           <Route path="/login" element={<Login />} exact />
           <Route path="/register" element={<Register />} exact />
           <Route path="/tutorial" element={<Tutorial />} exact />
+          <Route path="/teacher-space" element={<TeacherSpace />} exact />
         </Routes>
       </BrowserRouter>
     );

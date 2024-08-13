@@ -1,4 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
+import axios from "axios";
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
+
+const client = axios.create({
+  baseURL: "https://fonotcs.medicina.ufmg.br"
+});
 
 export class CaseManager extends Component {
   constructor(props) {
@@ -7,6 +16,26 @@ export class CaseManager extends Component {
       totalScore: 0,
       responses: {}
     };
+  }
+
+  submitUserScore(e) {
+    e.preventDefault();
+  
+    let data = {
+      grade: this.props.totalScore / 88
+    };
+    
+    client
+      .post('/casemanager/savescore', data)
+      .catch(function (error) {
+        if (
+          error
+        ) {
+          console.log(error.message);
+        } else {
+          console.log("erro");
+        }
+      });
   }
 
   render() {
@@ -18,8 +47,15 @@ export class CaseManager extends Component {
       <div className='global'>
         <div className='container'>
           <h2>Resultado final: {(totalScore * 100).toFixed(2)}%</h2>
+
+          <form onSubmit={(e) => this.submitUserScore(e)}>
+            <button className="btn form create-account" type="submit">
+              Confirmar resultado
+            </button>
+          </form>
         </div>
       </div>
+
     );
   }
 }

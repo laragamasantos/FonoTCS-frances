@@ -1,7 +1,7 @@
 import './App.css';
 import './Global.css';
 import './LoginRegister.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 
@@ -18,16 +18,6 @@ function Login() {
     const client = axios.create({
         baseURL: "https://fonotcs.medicina.ufmg.br/api"
     });
-
-/*     useEffect(() => {
-        client.get("/user")
-            .then(function (res) {
-                setCurrentUser(true);
-            })
-            .catch(function (error) {
-                setCurrentUser(false);
-            });
-    }, []); */
 
     function submitLogin(e) {
         e.preventDefault();

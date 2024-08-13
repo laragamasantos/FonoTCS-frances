@@ -77,3 +77,12 @@ class QuestionsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Questions
 		fields = '__all__'
+
+class SaveScoreSerializer(serializers.Serializer):
+	studentId = serializers.IntegerField()
+	classId = serializers.IntegerField()
+	grade = serializers.FloatField()
+	def save_score(self, clean_data):
+		student = Student.objects.get(id=clean_data['studentId'])
+		student.save()
+		return student

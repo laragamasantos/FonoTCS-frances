@@ -1,10 +1,27 @@
 import "./App.css";
 import "./Global.css";
-import React from "react";
+import { React, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import TutorialImg from "./imgs/tutorial.png";
+import axios from "axios";
+
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+axios.defaults.withCredentials = true;
 
 function Tutorial() {
+  const client = axios.create({
+    baseURL: "https://fonotcs.medicina.ufmg.br"
+  });
+  
+  useEffect(() => {
+    client.get("/user")
+        .then(function (res) {
+        })
+        .catch(function (error) {
+        });
+  }, []);
+
   const handleStartTest = () => {
     window.scrollTo(0, 0);
   };

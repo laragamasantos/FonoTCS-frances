@@ -7,7 +7,7 @@ from .models import Cases, Questions
 from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated	
 from .validations import custom_validation, validate_email, validate_password
-
+from django.views.decorators.csrf import csrf_exempt
 
 class StudentUserRegister(APIView):
 	permission_classes = (permissions.AllowAny,)
@@ -33,7 +33,7 @@ class TeacherUserRegister(APIView):
 
 class UserLogin(APIView):
 	permission_classes = (permissions.AllowAny,)
-	authentication_classes = (SessionAuthentication,)
+	@csrf_exempt
 	def post(self, request):
 		data = request.data
 		assert validate_email(data)
@@ -55,7 +55,6 @@ class UserLogout(APIView):
 
 class UserView(APIView):
 	permission_classes = (permissions.AllowAny,)
-	authentication_classes = (SessionAuthentication,)
 	def get(self, request):
 		serializer = UserSerializer(instance=request.user)
 		return Response(serializer.data, status=status.HTTP_200_OK)
@@ -93,6 +92,12 @@ class SaveUserScore(APIView):
 				result = serializer.save_score(request.totalScore)
 		except Exception as e:
 			print(e)
+		return Response(status=status.HTTP_200_OK)
+	
+class TeacherSpaceView(APIView):
+	permission_classes = (permissions.AllowAny,)
+	authentication_classes = ()
+	def get(self, request):
 		return Response(status=status.HTTP_200_OK)
 	
 class TesteView(APIView):

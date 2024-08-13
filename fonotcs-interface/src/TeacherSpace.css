@@ -1,0 +1,42 @@
+.container {
+    width: 100%;
+}
+
+.class-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 2%;
+}
+
+.class-title:hover {
+    cursor: pointer;
+}
+
+.class-results {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    background-color: white;
+    border-radius: 8px;
+    padding: 1%;
+    margin-bottom: 3%;
+}
+
+h3 {
+    margin-left: 2%;
+}
+
+.student-result-container {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    border-radius: 8px;
+    padding: 2%;
+    margin-bottom: 1%;
+}
+
+.student-result {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 2%;
+    padding-right: 2%;
+    border-left: thick solid rgb(53 162 159);
+}

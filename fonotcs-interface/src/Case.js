@@ -51,10 +51,10 @@ export class Case extends Component {
               </h2>
 
               <p>{this.props.case.description}</p>
-
-              <div className="case-img-container">
-                <img className="case-img" src={`https://fonotcs.medicina.ufmg.br/api/${this.props.case.image}`} alt=""/>
-              </div>
+              
+              {/* <div className="case-img-container">
+                <img className="case-img" src={`http://127.0.0.1:8000${this.props.case.image}`} alt=""/>
+              </div> */}
 
               {this.props.questions.map((question) => (
                 <div key={question.id}>
