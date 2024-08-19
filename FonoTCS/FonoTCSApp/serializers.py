@@ -77,6 +77,11 @@ class QuestionsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Questions
 		fields = '__all__'
+	
+class ClassesSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Classes
+		fields = '__all__'
 
 class SaveScoreSerializer(serializers.Serializer):
 	studentId = serializers.IntegerField()

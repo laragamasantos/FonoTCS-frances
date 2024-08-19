@@ -2,8 +2,8 @@ from django.contrib.auth import login, logout, authenticate
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer, SaveScoreSerializer
-from .models import Cases, Questions
+from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer, SaveScoreSerializer, ClassesSerializer
+from .models import Cases, Questions, Classes, Results
 from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated	
 from .validations import custom_validation, validate_email, validate_password
@@ -65,10 +65,6 @@ class CasesView(APIView):
 	def get(self, request):
 		cases = Cases.objects.all()
 		serializer = CasesSerializer(cases, many=True)
-		try:
-			print(request.session)
-		except Exception as e:
-			print(e)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 	
 class QuestionsView(APIView):
@@ -78,6 +74,17 @@ class QuestionsView(APIView):
 		questions = Questions.objects.all()
 		serializer = QuestionsSerializer(questions, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
+	
+class ClassesView(APIView):
+	def get(self, request):
+		classes = Classes.objects.filter(teacherId_id=self.request.user.user_id)
+		serializer = ClassesSerializer(classes, many=True)
+		
+		results = []
+		for class_data in serializer.data :
+			results[class_data.classId] = Results.objects.filter(classId_id=class_data.classId)
+		
+		return Response(results, status=status.HTTP_200_OK)
 	
 class SaveUserScore(APIView):
 	permission_classes = (permissions.AllowAny,)
