@@ -2,12 +2,13 @@ from django.contrib.auth import login, logout, authenticate
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer, SaveScoreSerializer, ClassesSerializer
-from .models import Cases, Questions, Classes, Results
+from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer, SaveScoreSerializer, ClassesSerializer, ResultsSerializer
+from .models import Cases, Questions, Classes, Results, AppUser
 from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated	
 from .validations import custom_validation, validate_email, validate_password
 from django.views.decorators.csrf import csrf_exempt
+from collections import OrderedDict
 
 class StudentUserRegister(APIView):
 	permission_classes = (permissions.AllowAny,)
@@ -75,16 +76,32 @@ class QuestionsView(APIView):
 		serializer = QuestionsSerializer(questions, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 	
-class ClassesView(APIView):
+class ResultsView(APIView):
 	def get(self, request):
 		classes = Classes.objects.filter(teacherId_id=self.request.user.user_id)
-		serializer = ClassesSerializer(classes, many=True)
+		class_serializer = ClassesSerializer(classes, many=True)
 		
-		results = []
-		for class_data in serializer.data :
-			results[class_data.classId] = Results.objects.filter(classId_id=class_data.classId)
+		all_results = {}
+		for classroom in class_serializer.data :
+			class_results = Results.objects.filter(classId_id=classroom.get('classId'))
+			res_serializer = ResultsSerializer(class_results, many=True)
+
+			result_fields = []
+			for result in res_serializer.data :
+				student = AppUser.objects.get(user_id=result.get('studentId'))
+
+				student_data = OrderedDict([
+					('id', result.get('id')),
+					('grade', result.get('grade')),
+					('classId', result.get('classId')),
+					('studentId', result.get('studentId')),
+					('studentName', student.username) 
+				])
+				result_fields.append(student_data)
+
+			all_results[classroom.get('classId')] = result_fields
 		
-		return Response(results, status=status.HTTP_200_OK)
+		return Response(all_results, status=status.HTTP_200_OK)
 	
 class SaveUserScore(APIView):
 	permission_classes = (permissions.AllowAny,)

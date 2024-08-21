@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
-from .models import Cases, Questions, Student, Teacher, Classes
+from .models import Cases, Questions, Student, Teacher, Classes, Results
 
 UserModel = get_user_model()
 
@@ -81,6 +81,11 @@ class QuestionsSerializer(serializers.ModelSerializer):
 class ClassesSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Classes
+		fields = '__all__'
+
+class ResultsSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Results
 		fields = '__all__'
 
 class SaveScoreSerializer(serializers.Serializer):

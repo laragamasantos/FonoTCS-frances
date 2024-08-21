@@ -12,14 +12,16 @@ axios.defaults.withCredentials = true;
 export class TeacherSpace extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      results: []
+    };
   }
 
   componentDidMount() {
     axios.get('https://fonotcs.medicina.ufmg.br/api/classes')
       .then(response => {
         console.log(response);
-        /* this.setState({ cases: response.data }); */
+        this.setState({ results: response.data });
       })
       .catch((error) => {
         console.log(error);
@@ -32,10 +34,9 @@ export class TeacherSpace extends Component {
         <div className="container">
           <h2>Espaço do professor</h2>
           <hr />
-          {/* <ClassResultAccordion title={title} content={content} /> */}
-          <ClassResultAccordion/>
-          <ClassResultAccordion/>
-          <ClassResultAccordion/>
+          {Object.keys(this.state.results).map((classId) => (
+            <ClassResultAccordion title={classId} content={this.state.results[classId]} />
+          ))}
         </div>
       </div>
     );
