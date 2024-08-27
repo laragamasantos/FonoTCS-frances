@@ -13,29 +13,18 @@ axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
 export class Home extends Component {
-   /* componentDidMount() {
-    axios
-      .get("http://127.0.0.1:8000/user", { withCredentials: true })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } 
- */
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <nav className="navbar">
             <div className="navbar-list">
-              <NavLink className="btn" to="/Login">
-                Conexão
+              <NavLink className="btn" to="/login-student">
+                Sou aluno
               </NavLink>
 
-              <NavLink className="btn" to="/Register">
-                Criar Conta
+              <NavLink className="btn" to="/login-teacher">
+                Sou professor
               </NavLink>
             </div>
           </nav>

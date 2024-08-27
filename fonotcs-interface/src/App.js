@@ -1,6 +1,8 @@
 import "./App.css";
-import Login from "./Login";
-import Register from "./Register";
+import LoginStudent from "./LoginStudent";
+import LoginTeacher from "./LoginTeacher";
+import RegisterStudent from "./RegisterStudent";
+import RegisterTeacher from "./RegisterTeacher";
 import Tutorial from "./Tutorial";
 import { Case } from "./Case";
 import { CaseManager } from "./CaseManager";
@@ -103,8 +105,10 @@ class App extends Component {
             }
             exact
           />
-          <Route path="/login" element={<Login />} exact />
-          <Route path="/register" element={<Register />} exact />
+          <Route path="/login-student" element={<LoginStudent />} exact />
+          <Route path="/login-teacher" element={<LoginTeacher />} exact />
+          <Route path="/register-student" element={<RegisterStudent />} exact />
+          <Route path="/register-teacher" element={<RegisterTeacher />} exact />
           <Route path="/tutorial" element={<Tutorial />} exact />
           <Route path="/teacher-space" element={<TeacherSpace />} exact />
         </Routes>

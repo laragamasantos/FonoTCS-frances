@@ -9,10 +9,11 @@ axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
-function Login() {
+function LoginStudent() {
     const [currentUser, setCurrentUser] = useState();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [classroom, setClassroom] = useState('');
     const [error, setError] = useState('');
 
     const client = axios.create({
@@ -21,6 +22,7 @@ function Login() {
 
     function submitLogin(e) {
         e.preventDefault();
+
         client.post(
             "/login",
             {
@@ -32,11 +34,10 @@ function Login() {
             }
         ).then(function (res) {
             setCurrentUser(true);
-            console.log("Conectado");
+            localStorage.setItem('classroom', classroom);
         }).catch(function (error) {
             setCurrentUser(false);
             setError("Nome de usuário ou senha incorretos.");
-            console.log("Não conectado");
         });
 
     }
@@ -64,11 +65,18 @@ function Login() {
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     /> <p className='password-desc'>A senha deve possuir no mínimo 8 caracteres.</p><br />
+                    <input
+                        type="text"
+                        placeholder="Código da turma"
+                        value={classroom}
+                        onChange={e => setClassroom(e.target.value)}
+                    /><br />
                     <button className='btn form' type="submit">Conexão</button>
+                    <p>Não possui uma conta? <a href='/register-student'>Criar conta</a></p>
                 </form>
             </div>
         </div>
     )
 }
 
-export default Login;
+export default LoginStudent;
