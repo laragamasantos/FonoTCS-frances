@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout, authenticate
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserLoginSerializer, UserSerializer, CasesSerializer, QuestionsSerializer, SaveScoreSerializer, ClassesSerializer, ResultsSerializer
@@ -103,10 +104,22 @@ class ResultsView(APIView):
 		
 		return Response(all_results, status=status.HTTP_200_OK)
 	
+class CreateClassView(APIView):
+	permission_classes = (permissions.AllowAny,)
+	def post(self, request):
+		clean_data = custom_validation(request.data)
+		serializer = TeacherUserRegisterSerializer(data=clean_data)
+		if serializer.is_valid(raise_exception=True):
+			user = serializer.create(clean_data)
+			if user:
+				return Response(serializer.data, status=status.HTTP_201_CREATED)
+		return Response(status=status.HTTP_400_BAD_REQUEST)
+	
 class SaveUserScore(APIView):
 	permission_classes = (permissions.AllowAny,)
-	authentication_classes = ()
+	authentication_classes = (TokenAuthentication,)
 	def post(self, request):
+		print(request.user)
 		try:
 			clean_data = request.data
 			clean_data['studentId'] = request.user.id

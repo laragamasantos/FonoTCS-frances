@@ -32,6 +32,7 @@ function LoginTeacher() {
             }
         ).then(function (res) {
             setCurrentUser(true);
+            localStorage.setItem('isUserConnected', true);
         }).catch(function (error) {
             setCurrentUser(false);
             setError("Nome de usuário ou senha incorretos.");

@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import axios from "axios";
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -6,7 +6,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-  baseURL: "https://fonotcs.medicina.ufmg.br"
+  baseURL: "https://fonotcs.medicina.ufmg.br/api"
 });
 
 export class CaseManager extends Component {
@@ -20,13 +20,18 @@ export class CaseManager extends Component {
 
   submitUserScore(e) {
     e.preventDefault();
-  
+
     let data = {
-      grade: this.props.totalScore / 88
+      grade: this.props.totalScore / 88,
+      classId: localStorage.getItem("classId")
     };
     
     client
-      .post('/casemanager/savescore', data)
+      .post('/casemanager/savescore', 
+        data,
+        {
+            withCredentials: true 
+        })
       .catch(function (error) {
         if (
           error

@@ -19,13 +19,17 @@ export class Home extends Component {
         <header className="App-header">
           <nav className="navbar">
             <div className="navbar-list">
-              <NavLink className="btn" to="/login-student">
-                Sou aluno
-              </NavLink>
+              {!localStorage.getItem("isUserConnected") ? (
+                <div>
+                  <NavLink className="btn" to="/login-student">
+                    Sou aluno
+                  </NavLink>
 
-              <NavLink className="btn" to="/login-teacher">
-                Sou professor
-              </NavLink>
+                  <NavLink className="btn" to="/login-teacher">
+                    Sou professor
+                  </NavLink>
+                </div>
+              ) : null}
             </div>
           </nav>
         </header>
@@ -44,10 +48,11 @@ export class Home extends Component {
 
         <div className="text">
           <p>
-          O FonoTCS é um teste de avaliação de raciocínio clínico em
-          Fonoaudiologia, baseado em casos apresentados em diferentes cenários (hospitais,
-          clínicas e Unidades Básicas de Saúde) que incorporam elementos de incerteza. Este teste foi concebido para a avaliação de estudantes e
-          jovens fonoaudiólogos.
+            O FonoTCS é um teste de avaliação de raciocínio clínico em
+            Fonoaudiologia, baseado em casos apresentados em diferentes cenários
+            (hospitais, clínicas e Unidades Básicas de Saúde) que incorporam
+            elementos de incerteza. Este teste foi concebido para a avaliação de
+            estudantes e jovens fonoaudiólogos.
           </p>
         </div>
 

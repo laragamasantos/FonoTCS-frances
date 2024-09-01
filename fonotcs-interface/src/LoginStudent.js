@@ -13,7 +13,7 @@ function LoginStudent() {
     const [currentUser, setCurrentUser] = useState();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [classroom, setClassroom] = useState('');
+    const [classId, setClass] = useState('');
     const [error, setError] = useState('');
 
     const client = axios.create({
@@ -34,7 +34,8 @@ function LoginStudent() {
             }
         ).then(function (res) {
             setCurrentUser(true);
-            localStorage.setItem('classroom', classroom);
+            localStorage.setItem('classId', classId);
+            localStorage.setItem('isUserConnected', true);
         }).catch(function (error) {
             setCurrentUser(false);
             setError("Nome de usuário ou senha incorretos.");
@@ -68,8 +69,8 @@ function LoginStudent() {
                     <input
                         type="text"
                         placeholder="Código da turma"
-                        value={classroom}
-                        onChange={e => setClassroom(e.target.value)}
+                        value={classId}
+                        onChange={e => setClass(e.target.value)}
                     /><br />
                     <button className='btn form' type="submit">Conexão</button>
                     <p>Não possui uma conta? <a href='/register-student'>Criar conta</a></p>

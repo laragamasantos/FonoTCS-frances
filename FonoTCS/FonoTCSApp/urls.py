@@ -13,5 +13,6 @@ urlpatterns = [
     path('cases', views.CasesView.as_view(), name='cases'),
     path('questions', views.QuestionsView.as_view(), name='questions'),
     path('results', views.ResultsView.as_view(), name='results'),
+    path('create-class', views.CreateClassView.as_view(), name='createClass'),
     path('tutorial', views.TesteView.as_view(), name='tutorial'),
 ]

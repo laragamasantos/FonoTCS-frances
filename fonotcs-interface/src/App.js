@@ -17,6 +17,10 @@ axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
+const client = axios.create({
+  baseURL: "https://fonotcs.medicina.ufmg.br/api",
+});
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,27 +29,50 @@ class App extends Component {
       caseCount: 0,
       cases: [],
       questions: [],
+      isUserConnected: false,
     };
   }
 
   componentDidMount() {
-    axios.get('https://fonotcs.medicina.ufmg.br/api/cases')
-      .then(response => {
-        console.log(response);
+    this.clearStorage();
+
+    client
+      .get("/cases")
+      .then((response) => {
         this.setState({ cases: response.data });
       })
       .catch((error) => {
         console.log(error);
       });
 
-    axios.get('https://fonotcs.medicina.ufmg.br/api/questions')
-      .then(response => {
-        console.log(response);
+    client
+      .get("/questions")
+      .then((response) => {
         this.setState({ questions: response.data });
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  clearStorage() {
+    let session = sessionStorage.getItem("register");
+
+    if (session == null) {
+      localStorage.clear();
+    }
+    sessionStorage.setItem("register", 1);
+  }
+
+  submitLogout(e) {
+    e.preventDefault();
+    try {
+      client.post("/logout", { withCredentials: true });
+      localStorage.clear();
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+    }
   }
 
   createCase = (caseObj) => {
@@ -85,11 +112,21 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <img
-          className="logo-header-img"
-          src={LogoHeader}
-          alt="FonoTCS logo and name"
-        />
+        <div className="app-header">
+          <img
+            className="logo-header-img"
+            src={LogoHeader}
+            alt="FonoTCS logo and name"
+          />
+          {localStorage.getItem("isUserConnected") ? (
+            <button
+              className="btn logout-btn"
+              onClick={(e) => this.submitLogout(e)}
+            >
+              Desconectar
+            </button>
+          ) : null}
+        </div>
         <Routes>
           <Route path="/" element={<Home />} exact />
           {this.state.cases.length > 0 &&

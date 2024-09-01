@@ -2,6 +2,29 @@
     width: 100%;
 }
 
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+input {
+    margin-top: 1%;
+}
+
+.new-class-form {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 0%;
+    margin-left: auto;
+}
+
+.new-class-btn {
+    margin-left: 2%;
+    margin-top: 13%;
+}
+
 .class-title {
     display: flex;
     flex-direction: row;
