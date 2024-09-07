@@ -100,13 +100,15 @@ class CreateClassView(APIView):
 	authentication_classes = [JWTAuthentication]
 	permission_classes = [IsAuthenticated]
 	def post(self, request):
-		clean_data = custom_validation(request.data)
-		serializer = TeacherUserRegisterSerializer(data=clean_data)
-		if serializer.is_valid(raise_exception=True):
-			user = serializer.create(clean_data)
-			if user:
-				return Response(serializer.data, status=status.HTTP_201_CREATED)
-		return Response(status=status.HTTP_400_BAD_REQUEST)
+		try:
+			clean_data = request.data
+			clean_data['teacherId'] = request.user.user_id
+			serializer = ClassesSerializer(data=clean_data)
+			if serializer.is_valid(raise_exception=True):
+				serializer.create(clean_data)
+		except Exception as e:
+			print(e)
+		return Response(status=status.HTTP_200_OK)
 	
 class SaveUserScore(APIView):
 	authentication_classes = [JWTAuthentication]
@@ -115,7 +117,7 @@ class SaveUserScore(APIView):
 		print(request.user)
 		try:
 			clean_data = request.data
-			clean_data['studentId'] = request.user.id
+			clean_data['studentId'] = request.user.user_id
 			clean_data['classId'] = 1
 			serializer = SaveScoreSerializer(data=clean_data)
 			if serializer.is_valid(raise_exception=True):

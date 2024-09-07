@@ -21,16 +21,13 @@ export class TeacherSpace extends Component {
     this.state = {
       results: [],
       newClassId: null,
-      token: localStorage.getItem("access_token")
     };
   }
 
   componentDidMount() {
-
     client
       .get("/results", { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
-        console.log(response);
         this.setState({ results: response.data });
       })
       .catch((error) => {
@@ -42,12 +39,14 @@ export class TeacherSpace extends Component {
     e.preventDefault();
 
     let data = {
-      classId: this.props.newClassId,
+      classId: this.state.newClassId,
     };
 
     client
       .post("/create-class", data, { headers: { Authorization: `Bearer ${token}` } })
-      .then((response) => {})
+      .then((response) => {
+        window.location.reload();
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -83,6 +82,7 @@ export class TeacherSpace extends Component {
           <hr />
           {Object.keys(this.state.results).map((classId) => (
             <ClassResultAccordion
+              key={classId}
               title={classId}
               content={this.state.results[classId]}
             />

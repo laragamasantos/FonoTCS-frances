@@ -87,6 +87,13 @@ class ClassesSerializer(serializers.ModelSerializer):
 		model = Classes
 		fields = '__all__'
 
+	def create(self, clean_data):
+		classId = clean_data['classId']
+		teacherId = clean_data['teacherId']
+		teacher = Teacher.objects.get(user_id=teacherId)
+
+		Classes.objects.create(classId=classId, teacherId=teacher)
+
 class ResultsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Results
@@ -96,6 +103,7 @@ class SaveScoreSerializer(serializers.Serializer):
 	studentId = serializers.IntegerField()
 	classId = serializers.IntegerField()
 	grade = serializers.FloatField()
+
 	def save_score(self, clean_data):
 		student = Student.objects.get(id=clean_data['studentId'])
 		student.save()
