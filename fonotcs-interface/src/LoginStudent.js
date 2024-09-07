@@ -17,7 +17,7 @@ function LoginStudent() {
     const [error, setError] = useState('');
 
     const client = axios.create({
-        baseURL: "https://fonotcs.medicina.ufmg.br/api"
+        baseURL: process.env.REACT_APP_BASE_URL
     });
 
     function submitLogin(e) {

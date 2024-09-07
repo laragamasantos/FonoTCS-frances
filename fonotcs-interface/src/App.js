@@ -18,7 +18,7 @@ axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-  baseURL: "https://fonotcs.medicina.ufmg.br/api",
+  baseURL: process.env.REACT_APP_BASE_URL,
 });
 
 class App extends Component {

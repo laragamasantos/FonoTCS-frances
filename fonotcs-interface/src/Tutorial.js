@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true;
 
 function Tutorial() {
   const client = axios.create({
-    baseURL: "https://fonotcs.medicina.ufmg.br"
+    baseURL: process.env.REACT_APP_BASE_URL
   });
   
   useEffect(() => {
