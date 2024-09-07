@@ -10,17 +10,13 @@ axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
 function Tutorial() {
+  useEffect(() => {
+    window.location.reload();
+  });
+
   const client = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL
   });
-  
-  useEffect(() => {
-    client.get("/user")
-        .then(function (res) {
-        })
-        .catch(function (error) {
-        });
-  }, []);
 
   const handleStartTest = () => {
     window.scrollTo(0, 0);

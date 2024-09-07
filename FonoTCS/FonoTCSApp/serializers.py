@@ -63,14 +63,7 @@ class TeacherUserRegisterSerializer(serializers.ModelSerializer):
 			'classId': validated_data.pop('classId', ''),
 			'teacherId': teacher,
 		}
-		classes = Classes.objects.create(**class_data)
-
-		return user
-
-class UserSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = UserModel
-		fields = ('user_id', 'email', 'username', 'isTeacher')
+		Classes.objects.create(**class_data)
 
 class CasesSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -101,10 +94,15 @@ class ResultsSerializer(serializers.ModelSerializer):
 
 class SaveScoreSerializer(serializers.Serializer):
 	studentId = serializers.IntegerField()
-	classId = serializers.IntegerField()
-	grade = serializers.FloatField()
+	classId = serializers.CharField()
+	totalScore = serializers.FloatField()
 
 	def save_score(self, clean_data):
-		student = Student.objects.get(id=clean_data['studentId'])
-		student.save()
-		return student
+		studentId = clean_data['studentId']
+		classId = clean_data['classId']
+		totalScore = clean_data['totalScore']
+
+		classObj = Classes.objects.get(classId=classId)
+		student = Student.objects.get(user_id=studentId)
+		Results.objects.create(grade=totalScore, classId=classObj, studentId=student)
+		

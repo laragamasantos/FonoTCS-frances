@@ -1,75 +1,84 @@
-import './App.css';
-import './Global.css';
-import './LoginRegister.css';
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import "./App.css";
+import "./Global.css";
+import "./LoginRegister.css";
+import React, { useState } from "react";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
 function LoginTeacher() {
-    const [currentUser, setCurrentUser] = useState();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+  const [currentUser, setCurrentUser] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-    const client = axios.create({
-        baseURL: process.env.REACT_APP_BASE_URL
-    });
+  const client = axios.create({
+    baseURL: process.env.REACT_APP_BASE_URL,
+  });
 
-    function submitLogin(e) {
-        e.preventDefault();
-        
-        client.post(
-            "/token/",
-            {
-                email: email,
-                password: password
-            }
-        ).then(function (res) {
-            const { access, refresh } = res.data;
+  function submitLogin(e) {
+    e.preventDefault();
 
-            setCurrentUser(true);
-            localStorage.setItem('access_token', access);
-            localStorage.setItem('refresh_token', refresh);
-            localStorage.setItem('isUserConnected', true);
-        }).catch(function (error) {
-            setCurrentUser(false);
-            setError("Nome de usuário ou senha incorretos.");
-        });
-    }
+    client
+      .post("/token/", {
+        email: email,
+        password: password,
+      })
+      .then(function (res) {
+        const { access, refresh } = res.data;
 
-    if (currentUser) {
-        return <Navigate to="/teacher-space" />; 
-    }
+        setCurrentUser(true);
+        localStorage.setItem("access_token", access);
+        localStorage.setItem("refresh_token", refresh);
+        localStorage.setItem("isUserConnected", true);
+      })
+      .catch(function (error) {
+        setCurrentUser(false);
+        setError("Nome de usuário ou senha incorretos.");
+      });
+  }
 
-    return (
-        <div className='global login'>
-            <div className='container form'>
-                <h1>Login</h1>
-                <hr />
-                {error && <p className='error'>{error}</p>}
-                <form onSubmit={e => submitLogin(e)}>
-                    <input
-                        type="text"
-                        placeholder="Email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                    /><br />
-                    <input
-                        type="password"
-                        placeholder="Senha"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    /> <p className='password-desc'>A senha deve possuir no mínimo 8 caracteres.</p><br />
-                    <button className='btn form' type="submit">Conexão</button>
-                    <p>Não possui uma conta? <a href='/register-teacher'>Criar conta</a></p>
-                </form>
-            </div>
-        </div>
-    )
+  if (currentUser) {
+    return <Navigate to="/teacher-space" />;
+  }
+
+  return (
+    <div className="global login">
+      <div className="container form">
+        <h1>Login</h1>
+        <hr />
+        {error && <p className="error">{error}</p>}
+        <form onSubmit={(e) => submitLogin(e)}>
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <br />
+          <input
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <p className="password-desc">
+            A senha deve possuir no mínimo 8 caracteres.
+          </p>
+          <br />
+          <button className="btn form" type="submit">
+            Conexão
+          </button>
+          <p>
+            Não possui uma conta? <a href="/register-teacher">Criar conta</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default LoginTeacher;

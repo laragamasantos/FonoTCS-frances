@@ -43,7 +43,9 @@ export class TeacherSpace extends Component {
     };
 
     client
-      .post("/create-class", data, { headers: { Authorization: `Bearer ${token}` } })
+      .post("/create-class", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => {
         window.location.reload();
       })

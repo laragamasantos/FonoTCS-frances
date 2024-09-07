@@ -1,7 +1,6 @@
-from django.contrib.auth import logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import StudentUserRegisterSerializer, TeacherUserRegisterSerializer, UserSerializer, CasesSerializer, QuestionsSerializer, SaveScoreSerializer, ClassesSerializer, ResultsSerializer, MyTokenObtainPairSerializer
+from .serializers import *
 from .models import Cases, Questions, Classes, Results, AppUser
 from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated	
@@ -35,21 +34,6 @@ class TeacherUserRegister(APIView):
 			if user:
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(status=status.HTTP_400_BAD_REQUEST)
-
-class UserLogout(APIView):
-	authentication_classes = [JWTAuthentication]
-	permission_classes = [IsAuthenticated]
-	def post(self, request):
-		logout(request)
-		return Response(status=status.HTTP_200_OK)
-
-
-class UserView(APIView):
-	authentication_classes = [JWTAuthentication]
-	permission_classes = [IsAuthenticated]
-	def get(self, request):
-		serializer = UserSerializer(instance=request.user)
-		return Response(serializer.data, status=status.HTTP_200_OK)
 	
 class CasesView(APIView):
 	permission_classes = (permissions.AllowAny,)
@@ -114,14 +98,14 @@ class SaveUserScore(APIView):
 	authentication_classes = [JWTAuthentication]
 	permission_classes = [IsAuthenticated]
 	def post(self, request):
-		print(request.user)
 		try:
 			clean_data = request.data
 			clean_data['studentId'] = request.user.user_id
-			clean_data['classId'] = 1
+			clean_data['classId'] = request.data['classId']
+			clean_data['totalScore'] = request.data['totalScore']
 			serializer = SaveScoreSerializer(data=clean_data)
 			if serializer.is_valid(raise_exception=True):
-				result = serializer.save_score(request.totalScore)
+				serializer.save_score(clean_data)
 		except Exception as e:
 			print(e)
 		return Response(status=status.HTTP_200_OK)

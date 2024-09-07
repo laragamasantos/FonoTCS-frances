@@ -36,7 +36,6 @@ export class Case extends Component {
   };
 
   handleSubmit = () => {
-    console.log("Submitted values:", this.state.responses);
     window.scrollTo(0, 0);
   };
 

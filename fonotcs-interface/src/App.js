@@ -64,15 +64,10 @@ class App extends Component {
     sessionStorage.setItem("register", 1);
   }
 
-  submitLogout(e) {
+  logout(e) {
     e.preventDefault();
-    try {
-      client.post("/logout", { withCredentials: true });
-      localStorage.clear();
-      window.location.href = "/";
-    } catch (error) {
-      console.error("Erro ao fazer logout:", error);
-    }
+    localStorage.clear();
+    window.location.href = "/";
   }
 
   createCase = (caseObj) => {
@@ -121,7 +116,7 @@ class App extends Component {
           {localStorage.getItem("isUserConnected") ? (
             <button
               className="btn logout-btn"
-              onClick={(e) => this.submitLogout(e)}
+              onClick={(e) => this.logout(e)}
             >
               Desconectar
             </button>
