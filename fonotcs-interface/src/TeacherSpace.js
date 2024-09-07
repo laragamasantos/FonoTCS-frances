@@ -10,8 +10,10 @@ axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL
+  baseURL: process.env.REACT_APP_BASE_URL,
 });
+
+const token = localStorage.getItem("access_token");
 
 export class TeacherSpace extends Component {
   constructor(props) {
@@ -19,12 +21,14 @@ export class TeacherSpace extends Component {
     this.state = {
       results: [],
       newClassId: null,
+      token: localStorage.getItem("access_token")
     };
   }
 
   componentDidMount() {
+
     client
-      .get("/results")
+      .get("/results", { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
         console.log(response);
         this.setState({ results: response.data });
@@ -38,13 +42,11 @@ export class TeacherSpace extends Component {
     e.preventDefault();
 
     let data = {
-      classId: this.props.newClassId
+      classId: this.props.newClassId,
     };
 
     client
-      .post("/create-class", data, {
-        withCredentials: true,
-      })
+      .post("/create-class", data, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {})
       .catch((error) => {
         console.log(error);

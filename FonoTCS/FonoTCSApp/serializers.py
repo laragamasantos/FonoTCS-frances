@@ -1,8 +1,20 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model
 from .models import Cases, Questions, Student, Teacher, Classes, Results
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 UserModel = get_user_model()
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token['username'] = user.username
+        token['email'] = user.email
+
+        return token
 
 class StudentUserRegisterSerializer(serializers.ModelSerializer):
 	gender = serializers.CharField(max_length=20, default='')
@@ -53,14 +65,6 @@ class TeacherUserRegisterSerializer(serializers.ModelSerializer):
 		}
 		classes = Classes.objects.create(**class_data)
 
-		return user
-	
-class UserLoginSerializer(serializers.Serializer):
-	email = serializers.EmailField()
-	password = serializers.CharField()
-	
-	def check_user(self, clean_data):
-		user = authenticate(username=clean_data['email'], password=clean_data['password'])
 		return user
 
 class UserSerializer(serializers.ModelSerializer):

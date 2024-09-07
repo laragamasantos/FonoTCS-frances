@@ -24,23 +24,23 @@ function LoginStudent() {
         e.preventDefault();
 
         client.post(
-            "/login",
+            "/token/",
             {
                 email: email,
                 password: password
-            },
-            {
-                withCredentials: true 
             }
         ).then(function (res) {
+            const { access, refresh } = res.data;
+
             setCurrentUser(true);
+            localStorage.setItem('access_token', access);
+            localStorage.setItem('refresh_token', refresh);
             localStorage.setItem('classId', classId);
             localStorage.setItem('isUserConnected', true);
         }).catch(function (error) {
             setCurrentUser(false);
             setError("Nome de usuário ou senha incorretos.");
         });
-
     }
 
     if (currentUser) {
