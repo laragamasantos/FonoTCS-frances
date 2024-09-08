@@ -3,7 +3,7 @@ import "./Global.css";
 import "./LoginRegister.css";
 import React, { useState } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -15,6 +15,7 @@ function LoginStudent() {
   const [password, setPassword] = useState("");
   const [classId, setClass] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const client = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
@@ -44,7 +45,8 @@ function LoginStudent() {
   }
 
   if (currentUser) {
-    return <Navigate to="/tutorial" />;
+    navigate('/tutorial');
+    window.location.reload();
   }
 
   return (
