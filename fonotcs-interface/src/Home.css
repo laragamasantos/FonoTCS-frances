@@ -13,7 +13,7 @@
     margin-left: auto;
     font-size: calc(10px + 2vmin);
     height: 12vh;
-    min-width: 200vh;
+    width: 95vw;
   }
   
   .navbar-list {
