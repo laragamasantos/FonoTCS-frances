@@ -1,7 +1,7 @@
 import "./App.css";
 import "./Global.css";
 import "./TeacherSpace.css";
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 
 const ClassResultAccordion = ({ title, content }) => {
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
@@ -18,7 +18,7 @@ const ClassResultAccordion = ({ title, content }) => {
             <div className="student-result-container">
               <div className="student-result">
                 <p>{ student.studentName }</p>
-                <p>{ student.grade }</p>
+                <p>{ (student.grade * 100).toFixed(2) }%</p>
               </div>
             </div>
           ))}
