@@ -20,9 +20,7 @@ export class CaseManager extends Component {
     };
   }
 
-  submitUserScore(e) {
-    e.preventDefault();
-
+  componentDidMount() {
     let data = {
       totalScore: this.props.totalScore / 88,
       classId: localStorage.getItem("classId"),
@@ -50,12 +48,6 @@ export class CaseManager extends Component {
       <div className="global">
         <div className="container">
           <h2>Resultado final: {(totalScore * 100).toFixed(2)}%</h2>
-
-          <form onSubmit={(e) => this.submitUserScore(e)}>
-            <button className="btn form create-account" type="submit">
-              Confirmar resultado
-            </button>
-          </form>
         </div>
       </div>
     );
