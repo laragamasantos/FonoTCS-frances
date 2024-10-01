@@ -54,6 +54,14 @@
     bottom: 0; 
     z-index: 1;
   }
+
+  .anonymous-btn {
+    position: absolute;
+    left: 42.5%;
+    top: 68%;
+    padding-left: 1%;
+    padding-right: 1%;
+  }
   
   .text {
     margin-right: 60%;

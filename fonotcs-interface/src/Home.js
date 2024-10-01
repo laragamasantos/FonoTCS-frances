@@ -55,6 +55,9 @@ export class Home extends Component {
             estudantes e jovens fonoaudiólogos.
           </p>
         </div>
+        <NavLink className="btn anonymous-btn" to="/tutorial">
+          Entrar como anônimo
+        </NavLink>
 
         <img className="ufmg-img" src={Ufmg} alt="Logo da UFMG" />
       </div>

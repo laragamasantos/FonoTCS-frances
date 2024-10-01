@@ -3,10 +3,10 @@ import "./Global.css";
 import "./LoginRegister.css";
 import React, { useState } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function RegisterStudent() {
-  const [currentUser, setCurrentUser] = useState(false);
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -36,14 +36,7 @@ function RegisterStudent() {
     client
       .post("/register/student", data)
       .then(function (res) {
-        client
-          .post("/login", {
-            email: email,
-            password: password,
-          })
-          .then(function (res) {
-            setCurrentUser(true);
-          });
+        navigate('/');
       })
       .catch(function (error) {
         if (
@@ -56,10 +49,6 @@ function RegisterStudent() {
           setError("erro");
         }
       });
-  }
-
-  if (currentUser) {
-    return <Navigate to="/tutorial" />;
   }
 
   return (

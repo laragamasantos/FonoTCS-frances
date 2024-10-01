@@ -49,7 +49,7 @@ export class Case extends Component {
                 Caso {this.props.case.id} de {CASES_NUMBER}:
               </h2>
 
-              <p>{this.props.case.description}</p>
+              <p className="case-description">{this.props.case.description}</p>
               
               <div className="case-img-container">
                 <img className="case-img" src={`${process.env.REACT_APP_BASE_URL + this.props.case.image}`} alt=""/>

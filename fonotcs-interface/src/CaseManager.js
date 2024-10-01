@@ -21,22 +21,24 @@ export class CaseManager extends Component {
   }
 
   componentDidMount() {
-    let data = {
-      totalScore: this.props.totalScore / 88,
-      classId: localStorage.getItem("classId"),
-    };
+    if (localStorage.getItem("isUserConnected")) {
+      let data = {
+        totalScore: this.props.totalScore / 88,
+        classId: localStorage.getItem("classId"),
+      };
 
-    client
-      .post("/casemanager/savescore", data, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .catch(function (error) {
-        if (error) {
-          console.log(error.message);
-        } else {
-          console.log("erro");
-        }
-      });
+      client
+        .post("/casemanager/savescore", data, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .catch(function (error) {
+          if (error) {
+            console.log(error.message);
+          } else {
+            console.log("erro");
+          }
+        });
+    }
   }
 
   render() {
@@ -48,6 +50,7 @@ export class CaseManager extends Component {
       <div className="global">
         <div className="container">
           <h2>Resultado final: {(totalScore * 100).toFixed(2)}%</h2>
+          <p>Parabéns! Você concluiu o teste!</p>
         </div>
       </div>
     );

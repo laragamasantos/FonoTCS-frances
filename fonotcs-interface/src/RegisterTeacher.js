@@ -3,9 +3,10 @@ import "./Global.css";
 import "./LoginRegister.css";
 import React, { useState } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function RegisterTeacher() {
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -14,7 +15,7 @@ function RegisterTeacher() {
   const [classId, setClassId] = useState("");
 
   const client = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL
+    baseURL: process.env.REACT_APP_BASE_URL,
   });
 
   function submitRegistration(e) {
@@ -24,19 +25,28 @@ function RegisterTeacher() {
       email: email,
       username: username,
       password: password,
-      classId: classId
+      classId: classId,
     };
-    
+
     client
       .post("/register/teacher", data)
       .then(function (res) {
         client
-          .post("/login", {
+          .post("/token/", {
             email: email,
             password: password,
           })
           .then(function (res) {
+            const { access, refresh } = res.data;
+
             setCurrentUser(true);
+            localStorage.setItem("access_token", access);
+            localStorage.setItem("refresh_token", refresh);
+            localStorage.setItem("isUserConnected", true);
+          })
+          .catch(function (error) {
+            setCurrentUser(false);
+            setError("erro");
           });
       })
       .catch(function (error) {
@@ -53,7 +63,8 @@ function RegisterTeacher() {
   }
 
   if (currentUser) {
-    return <Navigate to="/teacher-space" />;
+    navigate('/teacher-space');
+    window.location.reload();
   }
 
   return (
@@ -88,15 +99,15 @@ function RegisterTeacher() {
           </p>
           <br />
 
-            <div>
-              <input
-                type="text"
-                placeholder="Código da turma"
-                value={classId}
-                onChange={(e) => setClassId(e.target.value)}
-              />
-              <br />
-            </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Código da turma"
+              value={classId}
+              onChange={(e) => setClassId(e.target.value)}
+            />
+            <br />
+          </div>
           <button className="btn form create-account" type="submit">
             Salvar
           </button>

@@ -73,3 +73,7 @@ hr {
     margin-top: 5%;
     margin-bottom: 5%;
 }
+
+.case-description {
+    text-align: justify;
+}

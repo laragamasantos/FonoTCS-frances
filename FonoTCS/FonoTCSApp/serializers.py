@@ -65,6 +65,8 @@ class TeacherUserRegisterSerializer(serializers.ModelSerializer):
 		}
 		Classes.objects.create(**class_data)
 
+		return user
+
 class CasesSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Cases
