@@ -3,6 +3,11 @@ import "./Global.css";
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
+import case1 from "./imgs/case1.jpg";
+import case8 from "./imgs/case8.jpg";
+import case10 from "./imgs/case10.jpg";
+import case16 from "./imgs/case16.jpg";
+
 const CASES_NUMBER = 28;
 
 export class Case extends Component {
@@ -50,10 +55,6 @@ export class Case extends Component {
               </h2>
 
               <p className="case-description">{this.props.case.description}</p>
-              
-              <div className="case-img-container">
-                <img className="case-img" src={`${'https://fonotcs.medicina.ufmg.br' + this.props.case.image}`} alt=""/>
-              </div> 
 
               {this.props.questions.map((question) => (
                 <div key={question.id}>
@@ -65,6 +66,20 @@ export class Case extends Component {
                     <strong>E você encontra...</strong> &nbsp;
                     {question.and_situation}
                   </p>
+                  <div className="case-img-container">
+                    {this.props.case.id === 1 && question.id === 3 && (
+                      <img className="case-img" src={case1} alt="" />
+                    )}
+                    {this.props.case.id === 8 && question.id === 35 && (
+                      <img className="case-img" src={case8} alt="" />
+                    )}
+                    {this.props.case.id === 10 && question.id === 41 && (
+                      <img className="case-img" src={case10} alt="" />
+                    )}
+                    {this.props.case.id === 16 && question.id === 68 && (
+                      <img className="case-img" src={case16} alt="" />
+                    )}
+                  </div>
                   <p>
                     <strong>A decisão se torna: </strong>
                   </p>
