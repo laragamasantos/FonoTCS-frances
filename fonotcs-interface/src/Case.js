@@ -55,21 +55,6 @@ export class Case extends Component {
               </h2>
 
               <p className="case-description">{this.props.case.description}</p>
-              
-              <div className="case-img-container">
-              {this.props.case.id === 1 && (
-                <img className="case-img" src={case1} alt=""/>
-              )}
-              {this.props.case.id === 8 && (
-                <img className="case-img" src={case8} alt=""/>
-              )}
-              {this.props.case.id === 10 && (
-                <img className="case-img" src={case10} alt=""/>
-              )}
-              {this.props.case.id === 16 && (
-                <img className="case-img" src={case16} alt=""/>
-              )}
-              </div> 
 
               {this.props.questions.map((question) => (
                 <div key={question.id}>
@@ -81,6 +66,20 @@ export class Case extends Component {
                     <strong>E você encontra...</strong> &nbsp;
                     {question.and_situation}
                   </p>
+                  <div className="case-img-container">
+                    {this.props.case.id === 1 && question.id === 3 && (
+                      <img className="case-img" src={case1} alt="" />
+                    )}
+                    {this.props.case.id === 8 && question.id === 35 && (
+                      <img className="case-img" src={case8} alt="" />
+                    )}
+                    {this.props.case.id === 10 && question.id === 41 && (
+                      <img className="case-img" src={case10} alt="" />
+                    )}
+                    {this.props.case.id === 16 && question.id === 68 && (
+                      <img className="case-img" src={case16} alt="" />
+                    )}
+                  </div>
                   <p>
                     <strong>A decisão se torna: </strong>
                   </p>
